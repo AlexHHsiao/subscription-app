@@ -17,7 +17,14 @@ const PLAN_NAMES = {
     best: 'Best'
 };
 
+const CURRENCY_EXCHANGE = {
+    USD: 1,
+    CNY: 7,
+    HKD: 7.81
+};
+
 let prevSubscription;
+let currency = 'USD';
 let storedSubscription = {
     plan: 'good',
     name: 'Good',
@@ -32,6 +39,7 @@ const getCurrent = async (req, res) => {
 const getPreview = async (req, res) => {
     const body = req.body;
     const seats = parseInt(body.seats, 10);
+    const currency = req.header('currency') || 'USD';
 
     if (!body.plan || !PLAN_COSTS.hasOwnProperty(body.plan)) {
         res.status(400).json({error: "Please provide a correct plan"});
@@ -45,11 +53,15 @@ const getPreview = async (req, res) => {
         res.status(400).json({error: "Please provide an integer for number of seats"});
     }
 
+    if (!CURRENCY_EXCHANGE.hasOwnProperty(currency)) {
+        res.status(400).json({error: "We currently do not support this type of currency"});
+    }
+
     const response = {
         plan: body.plan,
         name: PLAN_NAMES[body.plan],
         seats,
-        cost: seats * PLAN_COSTS[body.plan]
+        cost: seats * PLAN_COSTS[body.plan] * CURRENCY_EXCHANGE[currency]
     };
     return res.json(response);
 };
@@ -57,6 +69,7 @@ const getPreview = async (req, res) => {
 const updateCurrent = async (req, res) => {
     const body = req.body;
     const seats = parseInt(body.seats, 10);
+    const currency = req.header('currency') || 'USD';
 
     if (!body.plan || !PLAN_COSTS.hasOwnProperty(body.plan)) {
         res.status(400).json({error: "Please provide a correct plan"});
@@ -70,11 +83,15 @@ const updateCurrent = async (req, res) => {
         res.status(400).json({error: "Please provide an integer for number of seats"});
     }
 
+    if (!CURRENCY_EXCHANGE.hasOwnProperty(currency)) {
+        res.status(400).json({error: "We currently do not support this type of currency"});
+    }
+
     const newData = {
         plan: body.plan,
         name: PLAN_NAMES[body.plan],
         seats,
-        cost: seats * PLAN_COSTS[body.plan]
+        cost: seats * PLAN_COSTS[body.plan] * CURRENCY_EXCHANGE[currency]
     };
 
     prevSubscription = storedSubscription;

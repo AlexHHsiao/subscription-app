@@ -1,4 +1,12 @@
 import {ENDPOINT, HTTP_METHODS} from "../util/constants";
+import AppConfig from './../util/config';
+
+const createHeader = () => (
+    {
+        currency: AppConfig.currency,
+        'Content-Type': 'application/json'
+    }
+);
 
 const checkStatus = response => {
     if (response.ok) {
@@ -19,7 +27,8 @@ const updateCurrent = (body) => {
     const url = `${ENDPOINT}/current`;
     return fetch(url, {
         method: HTTP_METHODS.PUT,
-        body: JSON.stringify(body)
+        body: JSON.stringify(body),
+        headers: createHeader()
     }).then(checkStatus);
 };
 
@@ -27,7 +36,8 @@ const getPreview = (body) => {
     const url = `${ENDPOINT}/preview`;
     return fetch(url, {
         method: HTTP_METHODS.POST,
-        body: JSON.stringify(body)
+        body: JSON.stringify(body),
+        headers: createHeader()
     }).then(checkStatus);
 };
 

@@ -13,7 +13,11 @@ class AppConfig {
     }
 
     initialize() {
-        this.currency = 'dollar';
+        this.currency = 'USD';
+    }
+
+    setCurrency(currency) {
+        this.currency = currency;
     }
 }
 
