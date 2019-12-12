@@ -1,9 +1,10 @@
 import React from 'react';
+import Modal from "./common/component/Modal/Modal";
 
 function App() {
   return (
-    <div>
-      <button className='btn btn-danger'>AA</button>
+    <div style={{width: '500px', height: '300px'}}>
+      <Modal/>
     </div>
   );
 }

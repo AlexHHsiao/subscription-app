@@ -1,14 +1,34 @@
-class ApiService {
-    constructor() {
+import {ENDPOINT, HTTP_METHODS} from "../util/constants";
 
+const checkStatus = response => {
+    if (response.ok) {
+        return response.json();
+    } else {
+        return Promise.reject(response);
     }
+};
 
-    simpleApi() {
-        let url = 'https://api.github.com/userss/AlexHHsiao';
-        return fetch(url, {
-            method: 'GET'
-        }).then(resp => resp.json());
-    }
-}
+const getCurrent = () => {
+    const url = `${ENDPOINT}/current`;
+    return fetch(url, {
+        method: HTTP_METHODS.GET
+    }).then(checkStatus);
+};
 
-export default new ApiService;
+const updateCurrent = (body) => {
+    const url = `${ENDPOINT}/current`;
+    return fetch(url, {
+        method: HTTP_METHODS.PUT,
+        body: JSON.stringify(body)
+    }).then(checkStatus);
+};
+
+const getPreview = (body) => {
+    const url = `${ENDPOINT}/preview`;
+    return fetch(url, {
+        method: HTTP_METHODS.POST,
+        body: JSON.stringify(body)
+    }).then(checkStatus);
+};
+
+export default {getCurrent, updateCurrent, getPreview};
