@@ -24,7 +24,6 @@ const CURRENCY_EXCHANGE = {
 };
 
 let prevSubscription;
-let currency = 'USD';
 let storedSubscription = {
     plan: 'good',
     name: 'Good',
@@ -33,7 +32,14 @@ let storedSubscription = {
 };
 
 const getCurrent = async (req, res) => {
-    return res.json(storedSubscription);
+    const currency = req.header('currency') || 'USD';
+
+    if (!CURRENCY_EXCHANGE.hasOwnProperty(currency)) {
+        res.status(400).json({error: "We currently do not support this type of currency"});
+    }
+    const newData = {...storedSubscription};
+    newData.cost *= CURRENCY_EXCHANGE[currency];
+    return res.json(newData);
 };
 
 const getPreview = async (req, res) => {
@@ -91,12 +97,14 @@ const updateCurrent = async (req, res) => {
         plan: body.plan,
         name: PLAN_NAMES[body.plan],
         seats,
-        cost: seats * PLAN_COSTS[body.plan] * CURRENCY_EXCHANGE[currency]
+        cost: seats * PLAN_COSTS[body.plan]
     };
 
     prevSubscription = storedSubscription;
     storedSubscription = newData;
-    return res.json(storedSubscription);
+    const responseData = {...newData};
+    responseData.cost *= CURRENCY_EXCHANGE[currency];
+    return res.json(responseData);
 };
 
 // Define routes
