@@ -1,7 +1,9 @@
-import React, {Component} from 'react';
+import React, {Component, createRef} from 'react';
 import ModalComponent from "./../../common/component/Modal/Modal";
 import Spinner from "./../../common/component/Spinner/Spinner";
 import {getCurrent, updateCurrent, getPreview} from "../../common/services/ApiService";
+import Header from "../Header/Header";
+import Subscription from "../Subscription/Subscription";
 
 class Main extends Component {
     constructor(props) {
@@ -11,7 +13,8 @@ class Main extends Component {
             showSpinner: true,
             showModal: false,
             subscriptionData: null,
-            error: null
+            modalData: {},
+            previewPrice: null
         };
     }
 
@@ -21,13 +24,17 @@ class Main extends Component {
                 this.setState({
                     showSpinner: false,
                     subscriptionData: response
-                })
+                });
             }).catch(error => {
             this.setState({
                 showSpinner: false,
-                showModal: true
-            })
-        })
+                showModal: true,
+                modalData: {
+                    type: 'Error',
+                    message: error.statusText
+                }
+            });
+        });
     }
 
     onCloseModal = () => {
@@ -36,34 +43,89 @@ class Main extends Component {
         })
     };
 
+    getPreview = (plan, seats) => {
+        this.setState({
+            showSpinner: true
+        });
+        const body = {
+            plan,
+            seats
+        };
+        getPreview(body).then(
+            response => {
+                this.setState({
+                    showSpinner: false,
+                    previewPrice: response.cost
+                });
+            }).catch(error => {
+            this.setState({
+                showSpinner: false,
+                showModal: true,
+                modalData: {
+                    type: 'Error',
+                    message: error.statusText
+                }
+            });
+        });
+    };
+
+    getUpdate = (plan, seats) => {
+        this.setState({
+            showSpinner: true
+        });
+        const body = {
+            plan,
+            seats
+        };
+        updateCurrent(body).then(
+            response => {
+                this.setState({
+                    showSpinner: false,
+                    subscriptionData: response,
+                    showModal: true,
+                    previewPrice: null,
+                    modalData: {
+                        type: 'Update Success',
+                        message: 'Your subscription has been updated. Please verify!'
+                    }
+                });
+            }).catch(error => {
+            this.setState({
+                showSpinner: false,
+                showModal: true,
+                modalData: {
+                    type: 'Error',
+                    message: error.statusText
+                }
+            });
+        });
+    };
+
     render() {
-        const {showSpinner, showModal, error, subscriptionData} = this.state;
+        const {showSpinner, showModal, modalData, subscriptionData, previewPrice} = this.state;
 
         return (
             <>
                 <Spinner open={showSpinner}/>
-                <ModalComponent open={showModal} onClose={this.onCloseModal}/>
-                <nav className="navbar navbar-light" style={{backgroundColor: '#e3f2fd'}}>
-                    <span className="navbar-brand mb-0 h1">Subscription App</span>
-
-                    <form className="form-inline">
-                        <div className="input-group">
-                            <div className="input-group-prepend">
-                                <label className="input-group-text">Currency</label>
-                            </div>
-                            <select className="custom-select">
-                                <option value='USD'>USD</option>
-                                <option value='CNY'>CNY</option>
-                                <option value='HKD'>HKD</option>
-                            </select>
+                <ModalComponent open={showModal} onClose={this.onCloseModal} modalData={modalData}/>
+                <Header/>
+                <div className='container mt-5'>
+                    <div className='row'>
+                        <div className='col-12'>
+                            {subscriptionData ?
+                                <Subscription
+                                    subscriptionData={subscriptionData}
+                                    getPreview={this.getPreview}
+                                    getUpdate={this.getUpdate}
+                                    previewPrice={previewPrice}
+                                />
+                                : ''}
                         </div>
-                    </form>
-
-
-                </nav>
+                    </div>
+                </div>
             </>
-    );
+        );
     }
-    }
+}
 
-    export default Main;
+export default Main;

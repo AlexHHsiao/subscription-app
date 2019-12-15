@@ -15,10 +15,6 @@ class AppConfig {
     initialize() {
         this.currency = 'USD';
     }
-
-    setCurrency(currency) {
-        this.currency = currency;
-    }
 }
 
 export default new AppConfig();

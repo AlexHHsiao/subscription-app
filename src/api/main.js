@@ -56,10 +56,6 @@ const getPreview = async (req, res) => {
         return res.status(400).json({error: "Please provide a correct plan"});
     }
 
-    if (!body.seats) {
-        return res.status(400).json({error: "Please provide the number of seats"});
-    }
-
     if (isNaN(seats)) {
         return res.status(400).json({error: "Please provide an integer for number of seats"});
     }
@@ -75,7 +71,7 @@ const getPreview = async (req, res) => {
         cost: seats * PLAN_COSTS[body.plan] * CURRENCY_EXCHANGE[currency]
     };
 
-    await timeout(2000);
+    await timeout(1000);
     return res.json(response);
 };
 
@@ -86,10 +82,6 @@ const updateCurrent = async (req, res) => {
 
     if (!body.plan || !PLAN_COSTS.hasOwnProperty(body.plan)) {
         return res.status(400).json({error: "Please provide a correct plan"});
-    }
-
-    if (!body.seats) {
-        return res.status(400).json({error: "Please provide the number of seats"});
     }
 
     if (isNaN(seats)) {
@@ -112,7 +104,7 @@ const updateCurrent = async (req, res) => {
     const responseData = {...newData};
     responseData.cost *= CURRENCY_EXCHANGE[currency];
 
-    await timeout(2000);
+    await timeout(1000);
     return res.json(responseData);
 };
 
