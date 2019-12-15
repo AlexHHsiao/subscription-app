@@ -84,6 +84,7 @@ response:
 - [x] My structure should support multiple products since product is a separated component
 - [x] I have a page (empty) specifically for user profile since as contact information and payment information
 - [x] I have add support for multiple currencies for both front-end and back-end
+- [ ] Use Redux instead of default state for better state management
 
 ## Third Party Libraries 
 * [Bootstrap](https://github.com/twbs/bootstrap)
