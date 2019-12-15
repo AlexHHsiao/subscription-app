@@ -7,9 +7,10 @@ const changeCurrency = () => {
     AppConfig.currency = currencySelection.current.value;
 };
 
-const Header = () => {
+const Header = ({getPreview}) => {
     const onChange = useCallback(() => {
         changeCurrency();
+        getPreview();
     }, []);
 
     return (

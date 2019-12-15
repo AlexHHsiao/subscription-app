@@ -13,7 +13,9 @@ class Main extends Component {
             showSpinner: true,
             showModal: false,
             subscriptionData: null,
-            modalData: {},
+            modalData: {
+                type: 'Error'
+            },
             previewPrice: null
         };
     }
@@ -31,6 +33,7 @@ class Main extends Component {
                 showModal: true,
                 modalData: {
                     type: 'Error',
+                    title: 'Something went wrong',
                     message: error.statusText
                 }
             });
@@ -63,6 +66,7 @@ class Main extends Component {
                 showModal: true,
                 modalData: {
                     type: 'Error',
+                    title: 'Something went wrong',
                     message: error.statusText
                 }
             });
@@ -79,22 +83,25 @@ class Main extends Component {
         };
         updateCurrent(body).then(
             response => {
-                this.setState({
+                this.setState((prevState) => ({
                     showSpinner: false,
                     subscriptionData: response,
                     showModal: true,
                     previewPrice: null,
                     modalData: {
-                        type: 'Update Success',
-                        message: 'Your subscription has been updated. Please verify!'
+                        type: 'Success',
+                        title: 'Update Success',
+                        prevSubscription: {...prevState.subscriptionData},
+                        newSubscription: response
                     }
-                });
+                }));
             }).catch(error => {
             this.setState({
                 showSpinner: false,
                 showModal: true,
                 modalData: {
                     type: 'Error',
+                    title: 'Something went wrong',
                     message: error.statusText
                 }
             });
@@ -108,21 +115,24 @@ class Main extends Component {
             <>
                 <Spinner open={showSpinner}/>
                 <ModalComponent open={showModal} onClose={this.onCloseModal} modalData={modalData}/>
-                <Header/>
-                <div className='container mt-5'>
-                    <div className='row'>
-                        <div className='col-12'>
-                            {subscriptionData ?
-                                <Subscription
-                                    subscriptionData={subscriptionData}
-                                    getPreview={this.getPreview}
-                                    getUpdate={this.getUpdate}
-                                    previewPrice={previewPrice}
-                                />
-                                : ''}
+                {subscriptionData ? (
+                    <>
+                        <Header getPreview={() => this.getPreview(subscriptionData.plan, subscriptionData.seats)}/>
+                        <div className='container mt-5'>
+                            <div className='row'>
+                                <div className='col-12'>
+                                    <Subscription
+                                        subscriptionData={subscriptionData}
+                                        getPreview={this.getPreview}
+                                        getUpdate={this.getUpdate}
+                                        previewPrice={previewPrice}
+                                    />
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
+                    </>
+                ) : ''
+                }
             </>
         );
     }

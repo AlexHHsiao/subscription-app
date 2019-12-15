@@ -7,19 +7,18 @@ const priceInput = createRef();
 const Subscription = ({subscriptionData, getPreview, getUpdate, previewPrice}) => {
     const [updateBtnDisable, setUpdateBtnDisable] = useState(true);
     useEffect(() => {
-        console.log(previewPrice, 'price', subscriptionData)
         if (previewPrice) {
             priceInput.current.value = previewPrice;
         } else {
             planSelection.current.value = subscriptionData.plan;
             seatInput.current.value = subscriptionData.seats;
             priceInput.current.value = subscriptionData.cost;
+            setUpdateBtnDisable(true);
         }
-    }, [subscriptionData, previewPrice]);
+    }, [subscriptionData, previewPrice, setUpdateBtnDisable]);
 
     const onSubscriptionChange = useCallback(() => {
-        console.log('dd', priceInput.current.value)
-        if (isNaN(parseInt(seatInput.current.value, 10)) ) {
+        if (isNaN(parseInt(seatInput.current.value, 10))) {
             seatInput.current.value = 1;
         }
 
