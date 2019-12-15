@@ -7,7 +7,7 @@ const PageNotFound = () => {
     const history = useHistory();
     const redirectCallback = useCallback(() => {
         history.push('/');
-    }, []);
+    }, [history]);
     return (
         <div className='notFoundContainer'>
             <div className='notFoundContent'>

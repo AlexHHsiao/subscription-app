@@ -12,14 +12,14 @@ const Header = ({getPreview}) => {
     const onChange = useCallback(() => {
         changeCurrency();
         getPreview();
-    }, []);
+    }, [getPreview]);
 
     return (
         <nav className="navbar navbar-light" style={{backgroundColor: '#e3f2fd'}}>
             <span className="navbar-brand mb-0 h1">Subscription App</span>
 
             <form className="form-inline">
-                <a className='nav-link mr-2'><Link to='/profile'>Profile</Link></a>
+                <a className='nav-link mr-2' href='#'><Link to='/profile'>Profile</Link></a>
 
                 <div className="input-group">
                     <div className="input-group-prepend">

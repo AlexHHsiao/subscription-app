@@ -29,11 +29,11 @@ const Subscription = ({subscriptionData, getPreview, getUpdate, previewPrice}) =
             priceInput.current.value = subscriptionData.cost;
             setUpdateBtnDisable(true);
         }
-    }, [subscriptionData]);
+    }, [subscriptionData, getPreview]);
 
     const onUpdate = useCallback(() => {
         getUpdate(planSelection.current.value, seatInput.current.value);
-    }, []);
+    }, [getUpdate]);
 
     return (
         <div className='card'>

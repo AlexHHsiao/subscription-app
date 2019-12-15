@@ -1,4 +1,4 @@
-import React, {Component, createRef} from 'react';
+import React, {Component} from 'react';
 import ModalComponent from "./../../common/component/Modal/Modal";
 import Spinner from "./../../common/component/Spinner/Spinner";
 import {getCurrent, updateCurrent, getPreview} from "../../common/services/ApiService";
