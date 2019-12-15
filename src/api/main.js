@@ -1,4 +1,5 @@
 const express = require('express');
+const cors_proxy = require('cors-anywhere');
 const server = express();
 server.use(express.json());
 // Define requests
@@ -31,14 +32,18 @@ let storedSubscription = {
     cost: 50
 };
 
+const timeout = ms => new Promise(resolve => setTimeout(resolve, ms));
+
 const getCurrent = async (req, res) => {
     const currency = req.header('currency') || 'USD';
 
     if (!CURRENCY_EXCHANGE.hasOwnProperty(currency)) {
-        res.status(400).json({error: "We currently do not support this type of currency"});
+        return res.status(400).json({error: "We currently do not support this type of currency"});
     }
     const newData = {...storedSubscription};
     newData.cost *= CURRENCY_EXCHANGE[currency];
+
+    await timeout(2000);
     return res.json(newData);
 };
 
@@ -48,19 +53,19 @@ const getPreview = async (req, res) => {
     const currency = req.header('currency') || 'USD';
 
     if (!body.plan || !PLAN_COSTS.hasOwnProperty(body.plan)) {
-        res.status(400).json({error: "Please provide a correct plan"});
+        return res.status(400).json({error: "Please provide a correct plan"});
     }
 
     if (!body.seats) {
-        res.status(400).json({error: "Please provide the number of seats"});
+        return res.status(400).json({error: "Please provide the number of seats"});
     }
 
     if (isNaN(seats)) {
-        res.status(400).json({error: "Please provide an integer for number of seats"});
+        return res.status(400).json({error: "Please provide an integer for number of seats"});
     }
 
     if (!CURRENCY_EXCHANGE.hasOwnProperty(currency)) {
-        res.status(400).json({error: "We currently do not support this type of currency"});
+        return res.status(400).json({error: "We currently do not support this type of currency"});
     }
 
     const response = {
@@ -69,6 +74,8 @@ const getPreview = async (req, res) => {
         seats,
         cost: seats * PLAN_COSTS[body.plan] * CURRENCY_EXCHANGE[currency]
     };
+
+    await timeout(2000);
     return res.json(response);
 };
 
@@ -78,19 +85,19 @@ const updateCurrent = async (req, res) => {
     const currency = req.header('currency') || 'USD';
 
     if (!body.plan || !PLAN_COSTS.hasOwnProperty(body.plan)) {
-        res.status(400).json({error: "Please provide a correct plan"});
+        return res.status(400).json({error: "Please provide a correct plan"});
     }
 
     if (!body.seats) {
-        res.status(400).json({error: "Please provide the number of seats"});
+        return res.status(400).json({error: "Please provide the number of seats"});
     }
 
     if (isNaN(seats)) {
-        res.status(400).json({error: "Please provide an integer for number of seats"});
+        return res.status(400).json({error: "Please provide an integer for number of seats"});
     }
 
     if (!CURRENCY_EXCHANGE.hasOwnProperty(currency)) {
-        res.status(400).json({error: "We currently do not support this type of currency"});
+        return res.status(400).json({error: "We currently do not support this type of currency"});
     }
 
     const newData = {
@@ -104,6 +111,8 @@ const updateCurrent = async (req, res) => {
     storedSubscription = newData;
     const responseData = {...newData};
     responseData.cost *= CURRENCY_EXCHANGE[currency];
+
+    await timeout(2000);
     return res.json(responseData);
 };
 
@@ -113,4 +122,8 @@ server.put("/api/current", updateCurrent);
 server.post("/api/preview", getPreview);
 
 // start the server
+cors_proxy.createServer({
+    originWhitelist: ['http://localhost:3000'],
+    requireHeader: ['Content-Type', 'currency']
+}).listen(3002, () => console.log("cors anywhere server is running on port 3002"));
 server.listen(8080, () => console.log("API server is running on port 8080"));

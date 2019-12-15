@@ -1,12 +1,11 @@
 import React from 'react';
-import Modal from "./common/component/Modal/Modal";
+import Main from "./component/Main/Main";
+
 
 function App() {
-  return (
-    <div style={{width: '500px', height: '300px'}}>
-      <Modal/>
-    </div>
-  );
+    return (
+        <Main/>
+    );
 }
 
 export default App;

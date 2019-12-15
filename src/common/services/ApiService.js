@@ -16,14 +16,15 @@ const checkStatus = response => {
     }
 };
 
-const getCurrent = () => {
+export const getCurrent = () => {
     const url = `${ENDPOINT}/current`;
     return fetch(url, {
-        method: HTTP_METHODS.GET
+        method: HTTP_METHODS.GET,
+        headers: createHeader()
     }).then(checkStatus);
 };
 
-const updateCurrent = (body) => {
+export const updateCurrent = (body) => {
     const url = `${ENDPOINT}/current`;
     return fetch(url, {
         method: HTTP_METHODS.PUT,
@@ -32,7 +33,7 @@ const updateCurrent = (body) => {
     }).then(checkStatus);
 };
 
-const getPreview = (body) => {
+export const getPreview = (body) => {
     const url = `${ENDPOINT}/preview`;
     return fetch(url, {
         method: HTTP_METHODS.POST,
@@ -40,5 +41,3 @@ const getPreview = (body) => {
         headers: createHeader()
     }).then(checkStatus);
 };
-
-export default {getCurrent, updateCurrent, getPreview};
