@@ -20,7 +20,7 @@ header:
   currency: 'USD'
 }
 ```
->:information_source: empty current in header will be set to USD by default
+>:information_source: empty currency in header will be set to USD by default
 
 `GET /api/current`
 Returns an object of subscription information.
