@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Header/> 1`] = `
+<nav
+  class="navbar navbar-light"
+  style="background-color: rgb(227, 242, 253);"
+>
+  <span
+    class="navbar-brand mb-0 h1"
+  >
+    Subscription App
+  </span>
+  <form
+    class="form-inline"
+  >
+    <div
+      class="input-group"
+    >
+      <div
+        class="input-group-prepend"
+      >
+        <label
+          class="input-group-text"
+        >
+          Currency
+        </label>
+      </div>
+      <select
+        class="custom-select"
+      >
+        <option
+          value="USD"
+        >
+          USD
+        </option>
+        <option
+          value="CNY"
+        >
+          CNY
+        </option>
+        <option
+          value="HKD"
+        >
+          HKD
+        </option>
+      </select>
+    </div>
+  </form>
+</nav>
+`;

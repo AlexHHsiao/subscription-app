@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<PageNotFound/> 1`] = `
+<div
+  class="notFoundContainer"
+>
+  <div
+    class="notFoundContent"
+  >
+    <h4>
+      The page you are looking does not exist!
+    </h4>
+  </div>
+</div>
+`;

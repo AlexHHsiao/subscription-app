@@ -1,6 +1,5 @@
 import React, {createRef, useCallback} from "react";
 import AppConfig from "../../common/util/config";
-import {Link} from 'react-router-dom';
 
 const currencySelection = createRef();
 
@@ -20,8 +19,6 @@ const Header = ({getPreview}) => {
             <span className="navbar-brand mb-0 h1">Subscription App</span>
 
             <form className="form-inline">
-                <Link className='nav-link mr-2' to='/profile'>Profile</Link>
-
                 <div className="input-group">
                     <div className="input-group-prepend">
                         <label className="input-group-text">Currency</label>

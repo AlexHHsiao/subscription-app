@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Main/> 1`] = `
+<div
+  class="spinnerContainer"
+>
+  <div
+    class="spinnerContent"
+  >
+    <div
+      class="spinner-border"
+      style="width: 75px; height: 75px;"
+    />
+  </div>
+</div>
+`;

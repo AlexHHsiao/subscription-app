@@ -77,6 +77,9 @@ response:
 }
 ```
 
+## Unit Test
+`npm run test` to generate test report
+
 ## future Enhancements supported
 - [x] I have rewritten the entire back-end with NodeJS since it works better with React app
 - [x] I have included a modal to handle failures of API

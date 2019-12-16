@@ -1,0 +1,98 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Subscription/> 1`] = `
+<div
+  class="card"
+>
+  <div
+    class="card-header"
+  >
+    Subscription
+  </div>
+  <div
+    class="card-body"
+  >
+    <div
+      class="row"
+    >
+      <div
+        class="col-sm-12 col-md-5"
+      >
+        <div
+          class="form-group"
+        >
+          <label>
+            Plan
+          </label>
+          <select
+            class="form-control"
+          >
+            <option
+              value="basic"
+            >
+              Basic
+            </option>
+            <option
+              value="good"
+            >
+              Good
+            </option>
+            <option
+              value="better"
+            >
+              Better
+            </option>
+            <option
+              value="best"
+            >
+              Best
+            </option>
+          </select>
+        </div>
+      </div>
+      <div
+        class="col-sm-12 col-md-5"
+      >
+        <div
+          class="form-group"
+        >
+          <label>
+            Seats
+          </label>
+          <input
+            class="form-control"
+            min="1"
+            type="number"
+          />
+        </div>
+      </div>
+      <div
+        class="col-sm-12 col-md-2"
+      >
+        <div
+          class="form-group"
+        >
+          <div
+            class="form-group"
+          >
+            <label>
+              Price
+            </label>
+            <input
+              class="form-control"
+              disabled=""
+              type="number"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <button
+      class="btn btn-primary float-right"
+      disabled=""
+    >
+      Update Subscription
+    </button>
+  </div>
+</div>
+`;
