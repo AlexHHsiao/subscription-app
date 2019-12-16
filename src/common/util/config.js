@@ -14,6 +14,7 @@ class AppConfig {
 
     initialize() {
         this.currency = 'USD';
+        this.prevCurrency = 'USD';
     }
 }
 

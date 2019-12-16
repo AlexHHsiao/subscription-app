@@ -5,6 +5,7 @@ import {Link} from 'react-router-dom';
 const currencySelection = createRef();
 
 const changeCurrency = () => {
+    AppConfig.prevCurrency = AppConfig.currency;
     AppConfig.currency = currencySelection.current.value;
 };
 
@@ -19,7 +20,7 @@ const Header = ({getPreview}) => {
             <span className="navbar-brand mb-0 h1">Subscription App</span>
 
             <form className="form-inline">
-                <a className='nav-link mr-2' href='#'><Link to='/profile'>Profile</Link></a>
+                <Link className='nav-link mr-2' to='/profile'>Profile</Link>
 
                 <div className="input-group">
                     <div className="input-group-prepend">

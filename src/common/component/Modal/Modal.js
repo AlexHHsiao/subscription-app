@@ -1,6 +1,7 @@
 import React, {useCallback} from 'react';
 import {Modal} from 'react-bootstrap';
 import DataDetail from "./DataDetail/DataDetail";
+import AppConfig from './../../util/config';
 import errorIcon from './../../images/error.svg';
 
 const modalType = {
@@ -8,11 +9,11 @@ const modalType = {
         return (
             <div className='row'>
                 <div className='col-sm-12 col-md-6'>
-                    <DataDetail title='Previous Subscription' data={prevSubscription}/>
+                    <DataDetail title='Previous Subscription' data={prevSubscription} currency={AppConfig.prevCurrency}/>
                 </div>
 
-                <div className='col-sm-12 col-md-6 mt-sm-2'>
-                    <DataDetail title='Updated Subscription' data={newSubscription} color='skyblue'/>
+                <div className='col-sm-12 col-md-6 mt-sm-2 mt-md-0'>
+                    <DataDetail title='Updated Subscription' data={newSubscription} currency={AppConfig.currency} color='skyblue'/>
                 </div>
             </div>
         );

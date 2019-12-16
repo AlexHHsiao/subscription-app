@@ -1,6 +1,6 @@
 import React from "react";
 
-const DataDetail = ({data, title, color='grey'}) => (
+const DataDetail = ({data, title, color='grey', currency}) => (
     <div className='card'>
         <div className='card-header'>{title}</div>
         <div className='card-body'>
@@ -12,6 +12,11 @@ const DataDetail = ({data, title, color='grey'}) => (
             <div className='form-group'>
                 <label>Seats</label>
                 <h5 style={{color: color}}>{data.seats}</h5>
+            </div>
+
+            <div className='form-group'>
+                <label>Currency</label>
+                <h5 style={{color: color}}>{currency}</h5>
             </div>
 
             <div className='form-group'>

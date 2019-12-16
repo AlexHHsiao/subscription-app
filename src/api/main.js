@@ -115,7 +115,7 @@ server.post("/api/preview", getPreview);
 
 // start the server
 cors_proxy.createServer({
-    originWhitelist: ['http://localhost:3000'],
+    originWhitelist: [],
     requireHeader: ['Content-Type', 'currency']
 }).listen(3002, () => console.log("cors anywhere server is running on port 3002"));
 server.listen(8080, () => console.log("API server is running on port 8080"));

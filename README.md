@@ -2,7 +2,7 @@
 A sample app for purchasing a subscription written in ReactJS for front-end and NodeJS for back-end
 
 ## Setup
-Please make sure [NodeJS](https://nodejs.org/en/) is installed in your environment.
+Please first make sure [NodeJS](https://nodejs.org/en/) is installed in your environment.
 
 * `npm install` install all dependence
 * `npm run start:server` starts local server on port 8080
@@ -83,10 +83,15 @@ response:
 - [x] I have checker to prevent invalid seat counts
 - [x] My structure should support multiple products since product is a separated component
 - [x] I have a page (empty) specifically for user profile since as contact information and payment information
-- [x] I have add support for multiple currencies for both front-end and back-end
+- [x] I have add support for multiple currencies for both front-end and back-end (CNY, USD, HKD)
 - [ ] Use Redux instead of default state for better state management
+    * I am not applying redux because default state management would fit this case better.
+    Redux would better manage state when there are multiple pages and large amount of data needed to display on UI.
+    Since this app has only one page and less data, I would consider default state management. However, I have configured each functional component with 
+    React Hooks, which can easily be converted with Redux in the future
 
 ## Third Party Libraries 
+I don't want to spend too much time on styling. I am focusing more on performance and making the app industry standard. Therefore, I am using Bootstrap for most of app styling. 
 * [Bootstrap](https://github.com/twbs/bootstrap)
 * [React Bootstrap](https://github.com/react-bootstrap/react-bootstrap)
 
